@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lancellot - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --header-footer-bg: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            --body-bg-day: #ffffff;
+            --body-bg-night: #121212;
+            --text-day: #333333;
+            --text-night: #f0f0f0;
+            --card-bg-day: #f8f9fa;
+            --card-bg-night: #1e1e1e;
+            --shadow-day: rgba(0, 0, 0, 0.1);
+            --shadow-night: rgba(255, 255, 255, 0.05);
+            --accent-color: #6e48aa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--body-bg-day);
+            color: var(--text-day);
+        }
+
+        body.night-mode {
+            background-color: var(--body-bg-night);
+            color: var(--text-night);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: var(--header-footer-bg);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: #ffd700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        nav ul li a.active {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        main {
+            min-height: calc(100vh - 140px);
+            padding: 2rem 0;
+        }
+
+        footer {
+            background: var(--header-footer-bg);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-links {
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #6e48aa;
+        }
+
+        .card {
+            background-color: var(--card-bg-day);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow-day);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .night-mode .card {
+            background-color: var(--card-bg-night);
+            box-shadow: 0 5px 15px var(--shadow-night);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .home-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .intro {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .intro h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .intro p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .profile-pic {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-pic img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(110, 72, 170, 0.3);
+        }
+
+        .btn:hover {
+            background-color: #5a3a8a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(110, 72, 170, 0.4);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background-color: #ddd;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .experience-list {
+            margin-top: 2rem;
+        }
+
+        .experience-item {
+            margin-bottom: 2rem;
+        }
+
+        .experience-item h3 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-item .date {
+            font-style: italic;
+            color: #777;
+            margin-bottom: 0.5rem;
+        }
+
+        .night-mode .experience-item .date {
+            color: #aaa;
+        }
+
+        .experience-item ul {
+            margin-left: 1.5rem;
+        }
+
+        .blog-list {
+            margin-top: 2rem;
+        }
+
+        .blog-post {
+            margin-bottom: 2rem;
+        }
+
+        .blog-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .blog-header i {
+            margin-right: 10px;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+
+        .blog-date {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 1rem;
+        }
+
+        .night-mode .blog-date {
+            color: #aaa;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: var(--card-bg-day);
+            color: var(--text-day);
+        }
+
+        .night-mode .form-group input,
+        .night-mode .form-group textarea {
+            background-color: var(--card-bg-night);
+            color: var(--text-night);
+            border-color: #444;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .social-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-pill {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(110, 72, 170, 0.3);
+        }
+
+        .social-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(110, 72, 170, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+            }
+
+            nav ul {
+                margin-bottom: 1rem;
+            }
+
+            .home-content {
+                flex-direction: column;
+            }
+
+            .intro, .profile-pic {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+
+            .intro h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-bolt"></i>
+                <span>Lancellot</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section id="home" class="page active">
+                <div class="home-content">
+                    <div class="intro">
+                        <h1>Lance D. Penascosa</h1>
+                        <p>Welcome to my portfolio website! I'm a passionate developer with expertise in web technologies and a keen eye for design. I love creating beautiful, functional, and user-friendly digital experiences.</p>
+                        <p>My skills include:</p>
+                        <ul>
+                            <li>Front-end development (HTML, CSS, JavaScript)</li>
+                            <li>Responsive web design</li>
+                            <li>UI/UX principles</li>
+                            <li>Problem solving and debugging</li>
+                        </ul>
+                        <a href="#contact" class="btn contact-btn">Contact me now</a>
+                    </div>
+                    <div class="profile-pic">
+                        <img src="assets/images/gwapo.jpg" alt="Lance D. Penascosa">
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="page">
+                <h2>My Projects</h2>
+                <div class="projects-grid">
+                    <div class="card project-card">
+                        <h3>E-commerce Website</h3>
+                        <div class="project-image">
+                            <img src="assets/images/pos.png" alt="E-commerce Project">
+                        </div>
+                        <p>Developed using Visual Studio 2022, this POS system streamlines sales transactions, inventory management, and customer data tracking. With a user-friendly interface and robust features, it enhances business operations and improves customer satisfaction.</p>
+                    </div>
+                    <div class="card project-card">
+                        <h3>Task Management App</h3>
+                        <div class="project-image">
+                            <img src="assets/images/taskweb.webp?text=Task+App" alt="Task App Project">
+                        </div>
+                        <p>A productivity application for managing tasks with drag-and-drop functionality, due date reminders, and team collaboration features.</p>
+                    </div>
+                    <div class="card project-card">
+                        <h3>College 4 U Mobile Application</h3>
+                        <div class="project-image">
+                            <img src="assets/images/app.jpg" alt="Mobile App Project">
+                        </div>
+                        <p>A Flutter-built mobile app serving as a comprehensive online repository of schools in Iloilo City, providing users with a centralized platform to explore and discover various educational institutions and their offered courses.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience" class="page">
+                <h2>Work Experience</h2>
+                <div class="experience-list">
+                    <div class="card experience-item">
+                        <h3>Frontend Developer - Raket Launcher</h3>
+                        <div class="date">April 2025 - Present</div>
+                        <ul>
+                            <li>Developed responsive web applications using React and TypeScript</li>
+                            <li>Collaborated with UX designers to implement pixel-perfect interfaces</li>
+                            <li>Optimized application performance, reducing load times by 40%</li>
+                            <li>Mentored junior developers in best practices and code reviews</li>
+                        </ul>
+                    </div>
+                    <div class="card experience-item">
+                        <h3>Web Developer Intern - Primof</h3>
+                        <div class="date">January 2023 - Feb 2023</div>
+                        <ul>
+                            <li>Assisted in building and maintaining client websites</li>
+                            <li>Implemented new features using JavaScript and CSS animations</li>
+                            <li>Conducted website testing and debugging</li>
+                            <li>Participated in agile development processes</li>
+                        </ul>
+                    </div>
+                    <div class="card experience-item">
+                        <h3>Freelance Web Designer</h3>
+                        <div class="date">2021 - 2023</div>
+                        <ul>
+                            <li>Designed and developed websites for small businesses</li>
+                            <li>Created branding materials including logos and style guides</li>
+                            <li>Provided SEO optimization and content strategy</li>
+                            <li>Managed client relationships and project timelines</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="blog" class="page">
+                <h2>My Blog</h2>
+                <div class="blog-list">
+                    <div class="card blog-post">
+                        <div class="blog-header">
+                            <i class="fas fa-comment-alt"></i>
+                            <h3>Getting Started with React Hooks</h3>
+                        </div>
+                        <div class="blog-date">Published: May 15, 2023 • 5 min read</div>
+                        <p>React Hooks have revolutionized how we write React components. In this post, I'll walk through the basics of useState and useEffect, two of the most commonly used hooks. We'll explore how to convert class components to functional components using hooks, and discuss some best practices to avoid common pitfalls...</p>
+                    </div>
+                    <div class="card blog-post">
+                        <div class="blog-header">
+                            <i class="fas fa-comment-alt"></i>
+                            <h3>The Power of CSS Grid</h3>
+                        </div>
+                        <div class="blog-date">Published: April 2, 2023 • 7 min read</div>
+                        <p>CSS Grid has become my go-to layout tool for complex web designs. Unlike Flexbox which is one-dimensional, Grid allows for precise two-dimensional control over your layouts. In this article, I'll demonstrate how to create common layouts with Grid, share some responsive design techniques, and compare when to use Grid versus Flexbox...</p>
+                    </div>
+                    <div class="card blog-post">
+                        <div class="blog-header">
+                            <i class="fas fa-comment-alt"></i>
+                            <h3>My Journey into Web Development</h3>
+                        </div>
+                        <div class="blog-date">Published: February 10, 2023 • 10 min read</div>
+                        <p>Two years ago, I knew nothing about coding. Today, I'm working as a professional web developer. This is the story of how I made the transition, the resources that helped me most, and the lessons I learned along the way. If you're considering a career change into tech or just starting your coding journey, I hope my experience can provide some guidance and inspiration...</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="page">
+                <h2>Get In Touch</h2>
+                <div class="contact-form">
+                    <div class="card">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Your Message</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn">Send Message</button>
+                        </form>
+                    </div>
+                    <div class="social-pills">
+                        <a href="#" class="social-pill"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://web.facebook.com/yash.yung.s" class="social-pill"><i class="fab fa-facebook"></i> Facebook</a>
+                        <a href="#" class="social-pill"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a href="#" class="social-pill"><i class="fab fa-indeed"></i> Indeed</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>&copy; 2023 Lancellot. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            body.classList.add('night-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('night-mode');
+            
+            if (body.classList.contains('night-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            pages.forEach(page => {
+                if (page.id !== 'home') {
+                    page.style.display = 'none';
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    
+                    navLinks.forEach(navLink => navLink.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    pages.forEach(page => {
+                        if (page.id === targetId) {
+                            page.style.display = 'block';
+                        } else {
+                            page.style.display = 'none';
+                        }
+                    });
+                    
+                    window.scrollTo(0, 0);
+                });
+            });
+            
+            const contactBtn = document.querySelector('.contact-btn');
+            if (contactBtn) {
+                contactBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = contactBtn.getAttribute('href').substring(1);
+                    
+                    document.querySelectorAll('nav a').forEach(navLink => navLink.classList.remove('active'));
+                    document.querySelector(`nav a[href="#${targetId}"]`).classList.add('active');
+                    
+                    document.querySelectorAll('.page').forEach(page => {
+                        if (page.id === targetId) {
+                            page.style.display = 'block';
+                        } else {
+                            page.style.display = 'none';
+                        }
+                    });
+                    
+                    window.scrollTo(0, 0);
+                });
+            }
+            
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const subject = document.getElementById('subject').value;
+                    const message = document.getElementById('message').value;
+                    
+                    console.log('Form submitted:', { name, email, subject, message });
+                    
+                    alert(`Thank you, ${name}! Your message has been sent to penascosalance1@gmail.com. I'll get back to you soon!`);
+                    
+                    contactForm.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
